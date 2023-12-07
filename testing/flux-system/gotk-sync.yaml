@@ -3,25 +3,23 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: flux-system
-  namespace: flux-system
+  name: git-repository
+  namespace: default
 spec:
   interval: 1m0s
   ref:
     branch: main
-  secretRef:
-    name: flux-system
-  url: ssh://git@github.com/ballela526/flux-deployment
+  url: https://github.com/ballela526/flux-deployment.git
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: flux-system
-  namespace: flux-system
+  name: kustomization
+  namespace: default
 spec:
-  interval: 10m0s
-  path: ./testing
+  interval: 5m0s
+  path: "./testing"
   prune: true
   sourceRef:
     kind: GitRepository
-    name: flux-system
+    name: git-repository
